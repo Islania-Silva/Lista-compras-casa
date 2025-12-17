@@ -1,0 +1,44 @@
+.pai {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    align-items: center;
+}
+section {
+    border-radius: 10px;
+    background: #a89393;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    height: 200px;
+    align-items: center;
+    justify-content: space-around;
+}
+.item {
+    width: 100%;
+    max-width: 170px;
+    display: flex;
+    justify-content: space-between;
+}
+.utensilios {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.filho {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.utensilios span {
+    font-size: 20px;
+    text-align: center;
+}
+span {
+    font-size: 20px;
+    text-align: left;
+}
+input {
+    height: 20px;
+}
