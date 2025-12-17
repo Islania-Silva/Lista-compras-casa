@@ -18,7 +18,7 @@
                     <button onclick="adicionarItem('utensilios')">Adicionar</button>
                 </div>
                 <section id="listaUtensilios">
-                    <div class="item">
+                    <!-- <div class="item">
                         <input type="checkbox" name="" id="riscar">
                         <span>Varal</span>
                     </div>
@@ -29,7 +29,7 @@
                     <div class="item">
                         <input type="checkbox" name="" id="riscar">
                         <span>Flanelas</span>
-                    </div>
+                    </div> -->
                 </section>
             </div>
 
@@ -40,7 +40,7 @@
                     <button onclick="adicionarItem('moveis')">Adicionar</button>
                 </div>
                 <section id="listaMoveis">
-                    <div class="item">
+                    <!-- <div class="item">
                         <input type="checkbox" name="" id="riscar">
                         <span>Ventilador</span>
                     </div>
@@ -57,7 +57,7 @@
                     <div class="item">
                         <input type="checkbox" name="" id="riscar">
                         <span>Geladeira</span>
-                    </div>
+                    </div> -->
                 </section>
             </div>
         </div>
@@ -65,33 +65,85 @@
 
 
     <script>
-        function adicionarItem(tipo) {
-            let input, lista;
+    const STORAGE_UTENSILIOS = 'listaUtensilios';
+    const STORAGE_MOVEIS = 'listaMoveis';
 
-            if (tipo === 'utensilios') {
-                input = document.getElementById('inputUtensilios');
-                lista = document.getElementById('listaUtensilios');
-            } else {
-                input = document.getElementById('inputMoveis');
-                lista = document.getElementById('listaMoveis');
-            }
+    document.addEventListener('DOMContentLoaded', () => {
+        carregarLista('utensilios');
+        carregarLista('moveis');
+    });
 
-            const texto = input.value.trim();
-            if (texto === '') return;
+    function adicionarItem(tipo) {
+        const input = document.getElementById(
+            tipo === 'utensilios' ? 'inputUtensilios' : 'inputMoveis'
+        );
 
-            const div = document.createElement('div');
-            div.className = 'item';
+        const lista = document.getElementById(
+            tipo === 'utensilios' ? 'listaUtensilios' : 'listaMoveis'
+        );
 
-            div.innerHTML = `
-        <input type="checkbox">
-        <span>${texto}</span>
-    `;
+        const texto = input.value.trim();
+        if (!texto) return;
 
-            lista.appendChild(div);
-            input.value = '';
-        }
+        criarItem(lista, texto, false);
+        salvarLista(tipo);
+        input.value = '';
+    }
 
-    </script>
+    function criarItem(lista, texto, marcado) {
+        const div = document.createElement('div');
+        div.className = 'item';
+
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.checked = marcado;
+
+        checkbox.addEventListener('change', () => {
+            salvarLista(lista.id === 'listaUtensilios' ? 'utensilios' : 'moveis');
+        });
+
+        const span = document.createElement('span');
+        span.textContent = texto;
+
+        div.append(checkbox, span);
+        lista.appendChild(div);
+    }
+
+    function salvarLista(tipo) {
+        const lista = document.getElementById(
+            tipo === 'utensilios' ? 'listaUtensilios' : 'listaMoveis'
+        );
+
+        const itens = [];
+        lista.querySelectorAll('.item').forEach(item => {
+            itens.push({
+                texto: item.querySelector('span').textContent,
+                marcado: item.querySelector('input').checked
+            });
+        });
+
+        localStorage.setItem(
+            tipo === 'utensilios' ? STORAGE_UTENSILIOS : STORAGE_MOVEIS,
+            JSON.stringify(itens)
+        );
+    }
+
+    function carregarLista(tipo) {
+        const lista = document.getElementById(
+            tipo === 'utensilios' ? 'listaUtensilios' : 'listaMoveis'
+        );
+
+        const dados = JSON.parse(
+            localStorage.getItem(
+                tipo === 'utensilios' ? STORAGE_UTENSILIOS : STORAGE_MOVEIS
+            )
+        ) || [];
+
+        dados.forEach(item => criarItem(lista, item.texto, item.marcado));
+    }
+</script>
+<!--localStorage.clear();   Apagar o localStorage  -->
+
 </body>
 
 </html>
