@@ -14,28 +14,25 @@
             <div class="filho">
                 <div class="utensilios">
                     <span>Adicionar Utensílios: </span>
-                    <input type="text">
+                    <input type="text" id="inputUtensilios" placeholder="Digite um item">
+                    <button onclick="adicionarItem('utensilios')">Adicionar</button>
                 </div>
-                <section>
+                <section id="listaUtensilios">
                     <div class="item">
-                        <div>
-                            <span>Ventilador</span>
-                        </div>
-                        <div>
-                            <input type="checkbox" name="" id="">
-                        </div>
+                        <input type="checkbox" name="" id="riscar">
+                        <span>Ventilador</span>
                     </div>
                     <div class="item">
+                        <input type="checkbox" name="" id="riscar">
                         <span>Varal</span>
-                        <input type="checkbox" name="" id="">
                     </div>
                     <div class="item">
+                        <input type="checkbox" name="" id="riscar">
                         <span>Vassoura</span>
-                        <input type="checkbox" name="" id="">
                     </div>
                     <div class="item">
+                        <input type="checkbox" name="" id="riscar">
                         <span>Flanelas</span>
-                        <input type="checkbox" name="" id="">
                     </div>
                 </section>
             </div>
@@ -43,26 +40,57 @@
             <div class="filho">
                 <div class="utensilios">
                     <span>Adicionar Móveis: </span>
-                    <input type="text">
+                    <input id="inputUtensilios" placeholder="Digite um item" type="text">
+                    <button onclick="adicionarItem('moveis')">Adicionar</button>
                 </div>
-                <section>
+                <section id="listaMoveis">
                     <div class="item">
+                        <input type="checkbox" name="" id="riscar">
                         <span>Base para a cama</span>
-                        <input type="checkbox" name="" id="">
                     </div>
 
                     <div class="item">
+                        <input type="checkbox" name="" id="riscar">
                         <span>Fogão</span>
-                        <input type="checkbox" name="" id="">
                     </div>
                     <div class="item">
+                        <input type="checkbox" name="" id="riscar">
                         <span>Geladeira</span>
-                        <input type="checkbox" name="" id="">
                     </div>
                 </section>
             </div>
         </div>
     </main>
+
+
+    <script>
+        function adicionarItem(tipo) {
+            let input, lista;
+
+            if (tipo === 'utensilios') {
+                input = document.getElementById('inputUtensilios');
+                lista = document.getElementById('listaUtensilios');
+            } else {
+                input = document.getElementById('inputMoveis');
+                lista = document.getElementById('listaMoveis');
+            }
+
+            const texto = input.value.trim();
+            if (texto === '') return;
+
+            const div = document.createElement('div');
+            div.className = 'item';
+
+            div.innerHTML = `
+        <input type="checkbox">
+        <span>${texto}</span>
+    `;
+
+            lista.appendChild(div);
+            input.value = '';
+        }
+
+    </script>
 </body>
 
 </html>

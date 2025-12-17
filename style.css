@@ -19,12 +19,12 @@ section {
     width: 100%;
     max-width: 170px;
     display: flex;
-    justify-content: space-between;
+    gap: 20px;
 }
 .utensilios {
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 7px;
 }
 .filho {
     display: flex;
@@ -32,13 +32,28 @@ section {
     gap: 20px;
 }
 .utensilios span {
-    font-size: 20px;
+    font-size: 25px;
     text-align: center;
 }
 span {
     font-size: 20px;
     text-align: left;
 }
-input {
+.utensilios input {
     height: 20px;
+    font-size: 18px;
+    width: 215px;
+    font-style: italic;
+}
+input[type="checkbox"] {
+    transform: scale(1.5); /* aumenta 50% */
+}
+.item input:checked + span {
+    text-decoration: line-through;
+    color: red;
+}
+button {
+    padding: 10px;
+    width: 100px;
+    font-size: 15px;
 }
